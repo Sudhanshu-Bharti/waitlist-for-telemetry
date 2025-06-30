@@ -11,19 +11,21 @@ export type WaitlistEntry = {
 export async function addWaitlistEntry({ email, name }: WaitlistEntry) {
   if (!databaseId) throw new Error("NOTION_DB_ID is not set")
   if (!email) throw new Error("Email is required")
+  if (!name) throw new Error("Name is required")
 
   const properties: any = {
+    Name: {
+        title: [
+          {
+            type: "text",
+            text: { content: name || email },
+          },
+        ],
+      },
     Email: {
       email: email,
     },
-    Name: {
-      title: [
-        {
-          type: "text",
-          text: { content: name || email },
-        },
-      ],
-    },
+    
   }
 
   try {
