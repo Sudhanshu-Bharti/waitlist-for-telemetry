@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server"
-import { headers } from "next/headers"
 import { addWaitlistEntry, getWaitlistEntryByEmail } from "@/lib/notion"
 import { sendWaitlistConfirmationEmail } from "@/lib/email"
 import { ratelimit } from "@/lib/rate-limit"
@@ -28,8 +27,8 @@ export async function POST(req: NextRequest) {
     await sendWaitlistConfirmationEmail({ to: email, name })
 
     return NextResponse.json({ success: true })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error(error)
-    return NextResponse.json({ error: error.message || "Internal Server Error" }, { status: 500 })
+    return NextResponse.json({ error: error instanceof Error ? error.message : "Internal Server Error" }, { status: 500 })
   }
 } 

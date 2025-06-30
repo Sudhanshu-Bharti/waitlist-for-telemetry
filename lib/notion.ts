@@ -1,4 +1,5 @@
 import { Client } from "@notionhq/client"
+import type { CreatePageParameters } from "@notionhq/client"
 
 const notion = new Client({ auth: process.env.NOTION_SECRET })
 const databaseId = process.env.NOTION_DB_ID
@@ -13,7 +14,7 @@ export async function addWaitlistEntry({ email, name }: WaitlistEntry) {
   if (!email) throw new Error("Email is required")
   if (!name) throw new Error("Name is required")
 
-  const properties: any = {
+  const properties: CreatePageParameters["properties"] = {
     Name: {
         title: [
           {

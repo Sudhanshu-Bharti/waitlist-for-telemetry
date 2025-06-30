@@ -2,7 +2,6 @@
 
 import { Toaster } from "@/components/ui/sonner";
 import { WaitlistSignup } from "./components/waitlist-signup";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Header } from "./components/header";
 

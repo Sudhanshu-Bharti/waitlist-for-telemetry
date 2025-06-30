@@ -43,7 +43,7 @@ export function WaitlistForm() {
           id: toastId,
         });
       }
-    } catch (err) {
+    } catch {
       toast.error("Network error. Please try again.", { id: toastId });
     } finally {
       setIsPending(false);

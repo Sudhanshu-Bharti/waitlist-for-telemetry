@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { WaitlistForm } from "./waitlist-form";
 import { StatisticLiveLogo } from "./statistic-live-logo";
 import { MiniDashboardMockup } from "./mini-dashboard-mockup";
@@ -23,7 +22,7 @@ export function WaitlistSignup() {
         <WaitlistForm />
       </div>
       <p className="mt-4 text-sm text-zinc-500 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-600">
-        Be the first to experience it—sign up now and don't miss the launch!
+        Be the first to experience it—sign up now and don&apos;t miss the launch!
       </p>
 
       <div className="mt-16 w-full max-w-5xl animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-800">
