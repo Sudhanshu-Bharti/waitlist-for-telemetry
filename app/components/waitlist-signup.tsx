@@ -1,88 +1,33 @@
 "use client";
 
-import { XIcon } from "@/components/icons/x-icon";
-import { DiscordIcon } from "@/components/icons/discord-icon";
-import { FacebookIcon } from "@/components/icons/facebook-icon";
-import { LinkedInIcon } from "@/components/icons/linkedin-icon";
+import Image from "next/image";
 import { WaitlistForm } from "./waitlist-form";
-import { InstagramIcon } from "@/components/icons/instagram-icon";
-import { SocialIcon } from "@/components/social-icon";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { StatisticLiveLogo } from "./statistic-live-logo";
+import { MiniDashboardMockup } from "./mini-dashboard-mockup";
 
 export function WaitlistSignup() {
   return (
-    <div className="w-full max-w-xl mx-auto p-8 flex flex-col justify-between min-h-screen">
-      <div className="flex-1 flex flex-col justify-center items-center text-center">
-        <h1 className="leading-18 text-4xl sm:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/60">
-          Join Our Waiting List
+    <div className="flex flex-col items-center  justify-center">
+      <div className="mt-12 space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
+        <h1 className="text-5xl font-bold tracking-tighter  text-center text-white sm:text-7xl">
+          The future of analytics
+          <br />
+          is loading.
         </h1>
-        <div>
-          <p className="text-lg sm:text-xl mb-8 text-muted-foreground">
-            Be part of something truly extraordinary. Join thousands of others
-            already gaining early access to our revolutionary new product.
-          </p>
-        </div>
-        <div className="w-full">
-          <WaitlistForm />
-        </div>
-        <div>
-          <div className="flex items-center justify-center mt-8">
-            <div className="flex -space-x-3 mr-4">
-              <Avatar className="size-10">
-                <AvatarImage src="https://bundui-images.netlify.app/avatars/01.png" />
-              </Avatar>
-              <Avatar className="size-10">
-                <AvatarImage src="https://bundui-images.netlify.app/avatars/02.png" />
-              </Avatar>
-              <Avatar className="size-10">
-                <AvatarImage src="https://bundui-images.netlify.app/avatars/03.png" />
-              </Avatar>
-              <Avatar className="size-10">
-                <AvatarImage src="https://bundui-images.netlify.app/avatars/04.png" />
-              </Avatar>
-            </div>
-            <p className="text-foreground font-semibold">
-              200+ people on the waitlist
-            </p>
-          </div>
-        </div>
+        <p className="text-lg text-zinc-400 text-justify leading-relaxed max-w-xl mx-auto">
+          <StatisticLiveLogo /> offers a new perspective on your data. Simple, beautiful, and privacy-focused. Join the waitlist for a breath of fresh air.
+        </p>
+
       </div>
-      <div className="pt-8 flex justify-center space-x-6">
-        <SocialIcon
-          href="https://x.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="X (formerly Twitter)"
-          icon={<XIcon className="w-6 h-6" />}
-        />
-        <SocialIcon
-          href="https://instagram.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Instagram"
-          icon={<InstagramIcon className="w-6 h-6" />}
-        />
-        <SocialIcon
-          href="https://discord.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Discord"
-          icon={<DiscordIcon className="w-6 h-6" />}
-        />
-        <SocialIcon
-          href="https://facebook.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Facebook"
-          icon={<FacebookIcon className="w-6 h-6" />}
-        />
-        <SocialIcon
-          href="https://linkedin.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="LinkedIn"
-          icon={<LinkedInIcon className="w-6 h-6" />}
-        />
+      <div className="mt-8 w-full animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-400">
+        <WaitlistForm />
+      </div>
+      <p className="mt-4 text-sm text-zinc-500 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-600">
+        Be the first to experience it—sign up now and don't miss the launch!
+      </p>
+
+      <div className="mt-16 w-full max-w-5xl animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-800">
+        <MiniDashboardMockup />
       </div>
     </div>
   );

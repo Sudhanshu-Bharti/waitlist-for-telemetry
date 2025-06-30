@@ -8,27 +8,33 @@ import { toast } from "sonner";
 
 export function WaitlistForm() {
   const [isPending, setIsPending] = useState(false);
-  const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!name || !email) return;
+
     setIsPending(true);
     const toastId = "waitlist-form-toast";
-    
+
     try {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, name: name || undefined }),
+        body: JSON.stringify({ name, email }),
       });
       const data = await res.json();
       if (res.ok) {
-        toast.success("Thank you for signing up!", { id: toastId });
-        setEmail("");
+        toast.success("Thank you for signing up! We'll be in touch.", {
+          id: toastId,
+        });
         setName("");
+        setEmail("");
       } else {
-        toast.error(data.error || "Something went wrong. Please try again.", { id: toastId });
+        toast.error(data.error || "Something went wrong. Please try again.", {
+          id: toastId,
+        });
       }
     } catch (err) {
       toast.error("Network error. Please try again.", { id: toastId });
@@ -38,36 +44,43 @@ export function WaitlistForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full space-y-4 mb-8">
-      <div className="flex flex-col gap-2">
-        <Input
-          id="email"
-          name="email"
-          type="email"
-          placeholder="Enter your email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          aria-describedby="email-error"
-          className="w-full border-0 bg-transparent placeholder:text-muted-foreground focus:ring-0 focus:border-transparent focus-visible:border-transparent focus:outline-none active:ring-0 active:outline-none focus-visible:ring-0 focus-visible:outline-none active:border-transparent focus-visible:ring-offset-0"
-        />
-        <Input
-          id="name"
-          name="name"
-          type="text"
-          placeholder="Your name (optional)"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full border-0 bg-transparent placeholder:text-muted-foreground focus:ring-0 focus:border-transparent focus-visible:border-transparent focus:outline-none active:ring-0 active:outline-none focus-visible:ring-0 focus-visible:outline-none active:border-transparent focus-visible:ring-offset-0"
-        />
-        <Button type="submit" disabled={isPending || !email}>
-          {isPending ? (
-            <Loader2 className="h-5 w-5 animate-spin" />
-          ) : (
-            "Get Notified"
-          )}
-        </Button>
-      </div>
+    <form
+      onSubmit={handleSubmit}
+      className="mx-auto mt-6 flex w-full max-w-2xl flex-col gap-3 sm:flex-row"
+    >
+      <Input
+        id="name"
+        name="name"
+        type="text"
+        placeholder="Full Name"
+        required
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        className="flex-1 rounded-none border-white/20 bg-white/10 px-4 py-4 text-white placeholder:text-zinc-400 transition-all focus:ring-green-500 hover:bg-white/20"
+        aria-label="Full Name"
+      />
+      <Input
+        id="email"
+        name="email"
+        type="email"
+        placeholder="Email Address"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="flex-1 rounded-none border-white/20 bg-white/10 px-4 py-4 text-white placeholder:text-zinc-400 transition-all focus:ring-green-500 hover:bg-white/20"
+        aria-label="Email address"
+      />
+      <Button
+        type="submit"
+        disabled={isPending || !email || !name}
+        className="rounded-none bg-white px-6 py-4 text-black transition-all hover:bg-zinc-200 hover:scale-105"
+      >
+        {isPending ? (
+          <Loader2 className="h-5 w-5 animate-spin" />
+        ) : (
+          "Sign up for waitlist"
+        )}
+      </Button>
     </form>
   );
 }

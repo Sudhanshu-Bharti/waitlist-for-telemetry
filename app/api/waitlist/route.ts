@@ -13,21 +13,18 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { email, name } = await req.json()
-    if (!email) {
-      return NextResponse.json({ error: "Email is required" }, { status: 400 })
+    const { name, email } = await req.json()
+    if (!name || !email) {
+      return NextResponse.json({ error: "Name and email are required" }, { status: 400 })
     }
 
-    // Check if user is already on the waitlist
     const existingEntry = await getWaitlistEntryByEmail(email)
     if (existingEntry) {
       return NextResponse.json({ error: "You are already on the waitlist!" }, { status: 409 })
     }
 
-    // Add to Notion
-    await addWaitlistEntry({ email, name })
+    await addWaitlistEntry({ name, email })
 
-    // Send confirmation email via Nodemailer
     await sendWaitlistConfirmationEmail({ to: email, name })
 
     return NextResponse.json({ success: true })

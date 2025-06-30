@@ -4,13 +4,14 @@ export async function sendWaitlistConfirmationEmail({ to, name }: { to: string; 
   const smtpUser = process.env.BREVO_SMTP_USER;
   const smtpPass = process.env.BREVO_SMTP_PASS;
   const senderEmail = process.env.BREVO_SENDER_EMAIL;
+  const host = process.env.BREVO_SMTP;
 
   if (!smtpUser || !smtpPass || !senderEmail) {
     throw new Error("BREVO_SMTP_USER, BREVO_SMTP_PASS, or BREVO_SENDER_EMAIL is not set in .env");
   }
 
   const transporter = nodemailer.createTransport({
-    host: "smtp-relay.brevo.com",
+    host: host,
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
