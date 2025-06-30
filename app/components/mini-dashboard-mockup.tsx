@@ -23,41 +23,41 @@ export function MiniDashboardMockup() {
 
   return (
     <div className="relative">
-      <div className="relative bg-zinc-900/80 backdrop-blur-xl rounded-none shadow-xl border border-white/10 p-6 max-w-2xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
+      <div className="relative bg-zinc-900/80 backdrop-blur-xl rounded-none shadow-xl border border-white/10 p-4 sm:p-6 max-w-2xl mx-auto">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
           <div className="flex items-center space-x-2">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-sm font-medium text-zinc-300">Live Analytics</span>
+            <span className="text-xs sm:text-sm font-medium text-zinc-300">Live Analytics</span>
           </div>
           <BarChart3 className="w-4 h-4 text-zinc-500" />
         </div>
 
-        <div className="flex gap-6">
+        <div className="flex flex-col gap-6 sm:flex-row">
           {/* Left Column */}
-          <div className="flex-1 space-y-6">
+          <div className="flex-1 space-y-4 sm:space-y-6">
             {/* Main Metric */}
             <div className="text-left">
-              <div className="text-4xl font-bold text-white mb-1">
+              <div className="text-2xl sm:text-4xl font-bold text-white mb-1">
                 {isVisible && <span className="tabular-nums">{metrics[activeMetric].value}</span>}
               </div>
-              <div className="text-sm text-zinc-400 mb-2">{metrics[activeMetric].label} today</div>
-              <div className="flex items-center justify-start text-sm text-emerald-400">
+              <div className="text-xs sm:text-sm text-zinc-400 mb-2">{metrics[activeMetric].label} today</div>
+              <div className="flex items-center justify-start text-xs sm:text-sm text-emerald-400">
                 <TrendingUp className="w-3 h-3 mr-1" />
                 {metrics[activeMetric].change}
               </div>
             </div>
 
             {/* Bottom Metrics Row */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4">
               {metrics.map((metric, index) => (
                 <div
                   key={index}
-                  className={`text-center p-3 rounded-none transition-all duration-300 cursor-pointer ${
+                  className={`text-center p-2 sm:p-3 rounded-none transition-all duration-300 cursor-pointer ${
                     index === activeMetric ? "bg-zinc-800 ring-2 ring-blue-500/50" : "hover:bg-zinc-800/50"
                   }`}
                   onClick={() => setActiveMetric(index)}
                 >
-                  <div className="text-lg font-semibold text-white">{metric.value}</div>
+                  <div className="text-base sm:text-lg font-semibold text-white">{metric.value}</div>
                   <div className="text-xs text-zinc-400">{metric.label}</div>
                 </div>
               ))}
@@ -65,17 +65,19 @@ export function MiniDashboardMockup() {
           </div>
 
           {/* Right Column */}
-          <div className="flex-1">
+          <div className="flex-1 mt-6 sm:mt-0">
             {/* Mini Chart Visualization */}
-            <div className="flex items-end justify-between h-40 px-2">
+            <div className="flex items-end justify-between h-24 sm:h-40 px-1 sm:px-2 overflow-x-auto">
               {[...Array(12)].map((_, i) => (
                 <div
                   key={i}
-                  className={`w-4 rounded-t-none transition-all duration-1000 ease-out ${
+                  className={`w-4 sm:w-5 rounded-t-none transition-all duration-1000 ease-out ${
                     i === activeMetric ? metrics[activeMetric].color : "bg-zinc-700"
                   }`}
                   style={{
-                    height: isVisible ? `${Math.random() * 120 + 30}px` : "4px",
+                    height: isVisible
+                      ? `${Math.random() * (window.innerWidth < 640 ? 60 : 120) + 30}px`
+                      : "4px",
                     transitionDelay: `${i * 100}ms`,
                   }}
                 />
